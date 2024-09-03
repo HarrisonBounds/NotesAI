@@ -1,5 +1,5 @@
 from openai import OpenAI
-client = OpenAI(api_key = "sk-77paGAPb7KxXOMNm4uT0ZUG-jF3Dq-jAhBFrleOEnDT3BlbkFJGobkdv8QDwjyn6h2l_ZzK-Srms81_pJtQDR7IfjFcA")
+client = OpenAI(api_key = "your_api_key")
 
 audio_file= open("audio_files/GreekDramaLecture.mp3", "rb")
 transcription = client.audio.transcriptions.create(
