@@ -25,9 +25,9 @@ Before you begin, ensure you have the following installed:
 
 To clone the repository, run the following command in your terminal:
 
-w
+```
 git clone https://github.com/your-username/repository-name.git
-w
+```
 
 Replace `your-username/repository-name` with the actual path of the repository you want to clone.
 
