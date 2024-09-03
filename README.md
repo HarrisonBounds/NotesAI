@@ -112,15 +112,7 @@ The application depends on the following Python libraries:
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
 
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
-## Acknowledgements
-
-- Thanks to [OpenAI](https://openai.com/) for providing robust APIs for transcription and text summarization.
-- Thanks to the developers of [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) for creating a modern and customizable Tkinter framework.
 
 ## Contact
 
-For questions or suggestions, please contact [your-email@example.com](mailto:your-email@example.com).
+For questions or suggestions, please contact [harrison.bounds777@gmail.com](mailto:harrison.bounds777@gmail.com).
