@@ -6,6 +6,7 @@ from openai import OpenAI
 import threading
 from pydub import AudioSegment
 import numpy as np
+from groq import Groq
 
 class NotesAIGUI:
     def __init__(self, root):
@@ -18,9 +19,9 @@ class NotesAIGUI:
         self.chunk_size = 30
         
         #Retrieve openai api key from environment variable
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("GROQ_API_KEY")
 
-        self.client = OpenAI(api_key=api_key)
+        self.client = Groq(api_key=api_key)
 
         self.recording = False
         self.recorded_chunks = []  # Store recorded audio chunks
@@ -85,44 +86,50 @@ class NotesAIGUI:
     
     def transcribe(self):
         
-        print("Here")
-        audio_file= open(f'audio_files/{self.get_filename("_audio.mp3")}', "rb")
+        audio_file= f'audio_files/{self.get_filename("_audio.mp3")}'
         transcription_file = f'transcription_files/{self.get_filename("_transcription.txt")}'
         
         
-        transcription = self.client.audio.transcriptions.create(
-            model="whisper-1", 
-            file=audio_file
-        )
-            
-        print("Here1")
-        
-        with open(transcription_file, "w") as f:
-            f.write(transcription.text)
+        with open(audio_file, "rb") as file:
+            transcription = self.client.audio.transcriptions.create(
+            file=(audio_file, file.read()),
+            model="whisper-large-v3",
+            response_format="verbose_json",
+            )
+    
+            with open(transcription_file, "w") as output_file:
+                output_file.write(transcription.text)
             
         print(f"Transcription saved to {transcription_file}")
 
     def summarize(self):
         transcription_file = f'transcription_files/{self.get_filename("_transcription.txt")}'
         summary_file = f'summary_files/{self.get_filename("_notes.txt")}'
+        
         with open(transcription_file, "r") as file:
             text_content = file.read()
 
         completion = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="llama3-8b-8192",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
                 {
                     "role": "user",
                     "content": f"Please summarize the following text into a concise and organized notes format suitable for studying:\n\n{text_content}"
                 }
-            ]
+            ],
+            temperature=1,
+            max_tokens=1024,
+            top_p=1,
+            stream=True,
+            stop=None,
         )
 
-        summary = completion.choices[0].message.content
-
+        # Open a file to save the output
         with open(summary_file, "w") as output_file:
-            output_file.write(summary)
+            for chunk in completion:
+                # Write each chunk to the file
+                content = chunk.choices[0].delta.content or ""
+                output_file.write(content)
 
         print(f'Summary written to {summary_file}')
         
