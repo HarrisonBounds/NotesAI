@@ -34,7 +34,7 @@ git clone https://github.com/HarrisonBoundsNotesAI.git
 1. Install the required Python packages:
 
    ```
-   pip install customtkinter sounddevice scipy pydub openai
+   pip install -r requirements.txt
    ```
 
 2. Install FFmpeg:
