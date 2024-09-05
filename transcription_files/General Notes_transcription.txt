@@ -1,0 +1,1 @@
+ This is a test for the Notes AI application. This is an application where you can record audio, transcribe it into text using OpenAI's Whisper model, and from that text you can summarize that text in a notes format automatically transporting it to your GitHub in a markdown file using Llama.

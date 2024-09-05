@@ -159,7 +159,7 @@ class NotesAIGUI:
     
     def cleanup(self):
         os.remove(f'audio_files/{self.get_filename(".wav")}')
-        os.remove(f'audio_files/{self.get_filename(".mp3")}')
+        os.remove(f'audio_files/{self.get_filename("_audio.mp3")}')
         os.remove(f'transcription_files/{self.get_filename(".txt")}')
 
 if __name__ == "__main__":
