@@ -84,11 +84,7 @@ git clone https://github.com/HarrisonBoundsNotesAI.git
 
 3. After stopping the recording, the application will automatically transcribe the audio and summarize the transcription into a notes format.
 
-4. All generated files (audio recordings, transcriptions, and summaries) will be saved in organized directories within the project folder:
-
-   - `audio_files/`: Contains recorded audio files in `.wav` and `.mp3` formats.
-   - `transcription_files/`: Contains transcription files in `.txt` format.
-   - `summary_files/`: Contains summarized notes in `.txt` format.
+4. All generated files (audio recordings, transcriptions) will be deleted after the summary is complete. The summary will then be autoamtically pushed to your repository in the NOTES folder. 
 
 ## Code Structure
 
