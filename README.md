@@ -55,6 +55,19 @@ git clone https://github.com/HarrisonBoundsNotesAI.git
      ```
      Replace `'your-api-key'` with your actual OpenAI API key.
 
+4. Install Git
+
+- **Windows**: Download Git from [Git's official website](https://git-scm.com/download/win) and follow the installation prompts.
+- **macOS**: Install using Homebrew:
+  
+  ```
+  brew install git
+  ```
+- **Linux**: Install using your package manager. For example, on Debian/Ubuntu:
+   ```
+  sudo apt install git
+  ```
+
 ## Usage
 
 1. Run the application:
