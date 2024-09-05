@@ -18,7 +18,7 @@ Before you begin, ensure you have the following installed:
 - [SoundDevice](https://python-sounddevice.readthedocs.io/)
 - [SciPy](https://www.scipy.org/)
 - [PyDub](https://github.com/jiaaro/pydub)
-- [OpenAI Python Client](https://github.com/openai/openai-python)
+- [Groq Python Client](https://github.com/groq/groq-python)
 - [FFmpeg](https://ffmpeg.org/) (required by PyDub for audio conversion)
 
 ## Cloning the Repository
@@ -46,12 +46,12 @@ git clone https://github.com/HarrisonBoundsNotesAI.git
      ```
    - **Linux**: Install using your package manager, e.g., `sudo apt install ffmpeg`.
 
-3. Set up your OpenAI API key:
+3. Set up your Groq API key:
 
-   - Sign up at [OpenAI](https://platform.openai.com/signup) and create an API key. NOTE: Depending on which model you use, OpenAI does ask for payment per token. 
-   - Set the environment variable `OPENAI_API_KEY`:
+   - Sign up at [Groq](https://console.groq.com/) and create an API key.
+   - Set the environment variable `GROQ_API_KEY`:
      ```
-     export OPENAI_API_KEY='your-api-key'
+     export GROQ_API_KEY='your-api-key'
      ```
      Replace `'your-api-key'` with your actual OpenAI API key.
 
@@ -85,7 +85,7 @@ git clone https://github.com/HarrisonBoundsNotesAI.git
   - **`record()`**: Records audio in chunks and saves it as a `.wav` file, then converts it to `.mp3`.
   - **`transcribe_and_summarize()`**: Handles transcription and summarization.
   - **`transcribe()`**: Uses OpenAI's Whisper model to transcribe audio.
-  - **`summarize()`**: Uses OpenAI's GPT model to summarize the transcribed text.
+  - **`summarize()`**: Uses Meta's Llama3 model to summarize the transcribed text.
   - **`get_filename()`**: Generates filenames based on the provided title or defaults.
   - **`cleanup()`**: Cleans up temporary audio files.
 
@@ -97,13 +97,13 @@ The application depends on the following Python libraries:
 - `sounddevice`: For audio recording.
 - `scipy`: For handling audio file formats.
 - `pydub`: For converting between audio formats.
-- `openai`: For interacting with OpenAI's API.
+- `groq`: For interacting with Groq's API.
 
 ## Troubleshooting
 
 - **Audio Recording Issues**: Ensure your microphone is properly connected and recognized by the system.
 - **FFmpeg Not Found**: Make sure FFmpeg is installed and added to your system PATH.
-- **API Key Errors**: Verify that your OpenAI API key is set correctly as an environment variable.
+- **API Key Errors**: Verify that your Groq API key is set correctly as an environment variable.
 
 ## Contributing
 
