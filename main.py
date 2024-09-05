@@ -1,8 +1,8 @@
 import os
+import subprocess
 import customtkinter as ctk
 import sounddevice as sd
 from scipy.io.wavfile import write
-from openai import OpenAI
 import threading
 from pydub import AudioSegment
 import numpy as np
@@ -16,7 +16,7 @@ class NotesAIGUI:
         self.root.geometry("600x400")
 
         self.fs = 44100  # Sample rate
-        self.chunk_size = 30
+        self.chunk_size = 10
         
         #Retrieve openai api key from environment variable
         api_key = os.getenv("GROQ_API_KEY")
@@ -83,6 +83,9 @@ class NotesAIGUI:
         self.transcribe()
         print("Summarizing Transcription")
         self.summarize()
+        
+        self.push_to_github()
+        self.cleanup()
     
     def transcribe(self):
         
@@ -104,7 +107,7 @@ class NotesAIGUI:
 
     def summarize(self):
         transcription_file = f'transcription_files/{self.get_filename("_transcription.txt")}'
-        summary_file = f'summary_files/{self.get_filename("_notes.txt")}'
+        summary_file = f'NOTES/{self.get_filename("_notes.md")}'
         
         with open(transcription_file, "r") as file:
             text_content = file.read()
@@ -143,8 +146,21 @@ class NotesAIGUI:
     def get_title(self):
         return self.title_entry.get().strip() or "output"
     
+    def push_to_github(self):
+        """Push changes to the GitHub repository."""
+        try:
+            # Change to your repository's root directory
+            subprocess.run(["git", "add", "."], check=True)
+            subprocess.run(["git", "commit", "-m", f'{self.get_filename("_notes.md")} automated update'], check=True)
+            subprocess.run(["git", "push"], check=True)
+            print("Changes pushed to GitHub successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while pushing to GitHub: {e}")
+    
     def cleanup(self):
         os.remove(f'audio_files/{self.get_filename(".wav")}')
+        os.remove(f'audio_files/{self.get_filename(".mp3")}')
+        os.remove(f'transcription_files/{self.get_filename(".txt")}')
 
 if __name__ == "__main__":
     root = ctk.CTk()
