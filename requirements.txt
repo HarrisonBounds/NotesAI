@@ -2,4 +2,4 @@ customtkinter
 sounddevice
 scipy
 pydub
-openai
+groq
