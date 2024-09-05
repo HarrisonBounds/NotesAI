@@ -26,18 +26,15 @@ Before you begin, ensure you have the following installed:
 To clone the repository, run the following command in your terminal:
 
 ```
-git clone https://github.com/your-username/repository-name.git
+git clone https://github.com/HarrisonBoundsNotesAI.git
 ```
-
-Replace `your-username/repository-name` with the actual path of the repository you want to clone.
-
 
 ## Installation
 
 1. Install the required Python packages:
 
    ```
-   pip install customtkinter sounddevice scipy pydub openai
+   pip install -r requirements.txt
    ```
 
 2. Install FFmpeg:
