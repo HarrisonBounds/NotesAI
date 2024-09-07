@@ -7,19 +7,25 @@ import threading
 from pydub import AudioSegment
 import numpy as np
 from groq import Groq
+import sys
+import yaml
 
 class NotesAIGUI:
     def __init__(self, root):
+        # Read Parameters
+        self.config = None
+        self._read_params()
+        
+        # Setup Root
         self.root = root
         self.root.title("NotesAI")
-        
         self.root.geometry("600x400")
 
-        self.fs = 44100  # Sample rate
-        self.chunk_size = 10
+        self.fs = self.config["sample_rate"]  # Sample rate
+        self.chunk_size = self.config["chunk_size"]
         
         #Retrieve openai api key from environment variable
-        api_key = os.getenv("GROQ_API_KEY")
+        api_key = self.config["groq_api_key"]
 
         self.client = Groq(api_key=api_key)
 
@@ -41,6 +47,12 @@ class NotesAIGUI:
         self.stop_button.pack(pady=20)
         
 
+    def _read_params(self):
+        # Load Parameters
+        _config_path = sys.path[0]+'\config.yaml'
+        with open(_config_path, 'r') as config:
+            self.config = yaml.safe_load(config)
+        
     def start_recording(self):
         self.recording = True
         self.record_button.configure(state="disabled")
@@ -84,7 +96,7 @@ class NotesAIGUI:
         print("Summarizing Transcription")
         self.summarize()
         
-        self.push_to_github()
+        # self.push_to_github()
         self.cleanup()
     
     def transcribe(self):

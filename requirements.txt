@@ -3,3 +3,4 @@ sounddevice
 scipy
 pydub
 groq
+pyyaml
