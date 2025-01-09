@@ -22,7 +22,7 @@ def summarize_text(text, output_file):
         messages=[
             {
                 "role": "user",
-                "content": f"Please summarize the following text into a concise and organized notes format suitable for studying:\n\n{text}"
+                "content": f"Please summarize the following text into a concise and organized notes format suitable for studying:\n\n{first_half}"
             }
         ],
         temperature=1,
