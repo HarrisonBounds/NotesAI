@@ -3,8 +3,8 @@ from groq import Groq
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-audio_file = "audio_files/GreekDramaLecture_EXAMPLE.mp3"
-transcription_file = "transcription_files/GreekDramaLectureTranscription_EXAMPLE.txt"
+audio_file = "c_C++_lecture_2_audio.mp3"
+transcription_file = "transcription_files/C++_lecture_2_transcription.txt"
 
 with open(audio_file, "rb") as file:
     transcription = client.audio.transcriptions.create(

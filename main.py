@@ -7,6 +7,7 @@ import threading
 from pydub import AudioSegment
 import numpy as np
 from groq import Groq
+from os.path import basename
 
 class NotesAIGUI:
     def __init__(self, root):
@@ -89,7 +90,7 @@ class NotesAIGUI:
     
     def transcribe(self):
         
-        audio_file= f'audio_files/{self.get_filename("_audio.mp3")}'
+        audio_file = self.compress_mp3_file(f'audio_files/{self.get_filename("_audio.mp3")}')
         transcription_file = f'transcription_files/{self.get_filename("_transcription.txt")}'
         
         
@@ -104,6 +105,25 @@ class NotesAIGUI:
                 output_file.write(transcription.text)
             
         print(f"Transcription saved to {transcription_file}")
+        
+    def compress_mp3_file(mp3_file_path):
+        if (not mp3_file_path.endswith(".mp3")): return
+
+        output_file_path = "{}_compressed.mp3".format(os.path.splitext(basename(mp3_file_path))[0])
+        print("\n Processing {} ==> {}".format(mp3_file_path, output_file_path))
+
+        audio_file = AudioSegment.from_file(mp3_file_path, "mp3")
+        frame_rate = audio_file.frame_rate
+        bytes_per_sample = audio_file.sample_width
+
+        if (frame_rate == 11025):
+            print(" frame rate is already 11025, ignore.")
+            return
+
+        print(" frame_rate {} ==> {}".format(frame_rate, "11025"))
+        audio_file.export(output_file_path, format="mp3", parameters=["-ar", "11025"])
+        
+        return output_file_path
 
     def summarize(self):
         transcription_file = f'transcription_files/{self.get_filename("_transcription.txt")}'
